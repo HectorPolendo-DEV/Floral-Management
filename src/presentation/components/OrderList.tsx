@@ -14,7 +14,7 @@ const OrderList = ({ orders }: OrderListProps) => {
   return (
     <View className={`flex-1 relative bg-[${colors.secondary}]`}>
       <LinearGradient
-        colors={['rgba(255, 239, 237, 1)', 'rgba(255, 239, 237, 0)']}
+        colors={[colors.secondary, colors.secondaryTransparent]}
         style={[styles.fade, styles.topFade]}
         pointerEvents="none"
       />
@@ -28,7 +28,7 @@ const OrderList = ({ orders }: OrderListProps) => {
         contentContainerStyle={{ paddingVertical: 20 }}
       />
       <LinearGradient
-        colors={['rgba(255, 239, 237, 0)', 'rgba(255, 239, 237, 1)']}
+        colors={[colors.secondaryTransparent, colors.secondary]}
         style={[styles.fade, styles.bottomFade]}
         pointerEvents="none"
       />

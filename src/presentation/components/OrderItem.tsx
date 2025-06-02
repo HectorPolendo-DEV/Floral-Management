@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, Text, Image, Dimensions } from 'react-native';
+import { View, Text, Image, Dimensions, ImageSourcePropType } from 'react-native';
 import { Order } from '../../models/Order';
 import colors from '@/theme/colors';
 import { OrderStatus } from '../../models/Order';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Tag from './Tag';
 
 const screenWidth = Dimensions.get('window').width;
-const itemSize = screenWidth / 2;
+const itemSize = screenWidth / 3;
 
-// Define the color mappings
 const statusColor: Record<OrderStatus, string> = {
   'Entregado': `${colors.success}`,
   'Pendiente': `${colors.warning}`,
@@ -15,14 +16,6 @@ const statusColor: Record<OrderStatus, string> = {
   'Cancelado': `${colors.error}`
 };
 
-const textColorByStatus: Record<OrderStatus, string> = {
-  'Entregado': `${colors.successText}`,
-  'Pendiente': `${colors.warningText}`,
-  'En camino': 'white',
-  'Cancelado': `${colors.errorText}`
-};
-
-const image = require('assets/flowers-2.jpg');
 interface Props {
   order: Order;
 }
@@ -30,28 +23,21 @@ interface Props {
 const OrderItem = ({ order }: Props) => {
   return (
     <View 
-      className='rounded-2xl mb-3 flex-row bg-white mx-2 '>
+      className='rounded-2xl mb-3 flex-row bg-white mx-2 items-center'>
       
-      <Image source={image}
+      <Image source={order.image as ImageSourcePropType}
         className={'rounded-2xl'}
-        style={{ width: itemSize-50, height: itemSize-50 }}/>
+        style={{ width: itemSize-20, height: itemSize }}
+        resizeMode="cover"
+      />
       
-      <View className='mt-2 ml-2'>
-        <View className='flex-1'>
-          <View className='flex-row'>
-            <Text className='text-2xl font-bold'>Pedido</Text>
-            <Text className='text-2xl font-bold ml-2'>{'#'+order.id}</Text>
-          </View>
-          <Text className='text-2xl'>{order.customer}</Text>
-          <View className='flex-row'>
-            <Text className='text-2xl'>Tipo:</Text>
-            <Text className='text-2xl ml-2'>{order.type}</Text>
-          </View>
-          <View style={{ backgroundColor: statusColor[order.status], alignSelf: 'flex-start', minWidth: 90 }} className={`px-2 rounded-md`}>
-            <Text className={'text-lg font-bold'} style={{flexWrap: 'wrap', color: textColorByStatus[order.status]}}>{order.status}</Text>
-          </View>
-        </View>  
+      <View className='my-2 mx-4 flex-1'>
+          <Tag text={order.status} color={statusColor[order.status]}/>
+          <Text style={{fontFamily: 'Roboto-SemiBold'}} className='text-2xl' numberOfLines={1}>{order.customer}</Text>
+          <Text style={{fontFamily: 'Roboto-SemiBold', color: colors.primary}} className='text-xl'>{'#'+order.id}</Text>
+          <Text className='text-2xl me-2'numberOfLines={2}>Tipo: {order.type}</Text>
       </View>
+      <Ionicons name="chevron-forward-sharp" size={25} color={colors.primary} className='mr-1 self-center'/>
     </View>
   );
 };

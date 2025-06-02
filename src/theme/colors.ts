@@ -1,15 +1,13 @@
 const colors = {
-    primary: '#E28A93',        // rosa
-    secondary: '#FFEFED',      // rosa claro
+    primary: '#FFB8BF',
+    secondary: '#FFE9EB',
+    secondaryTransparent: '#FFEFED00',
     background: '#FFFFFF',
     textPrimary: '#1A1A1A',
-    textSecondary: '#555',
-    success: '#C6EDD1',
-    successText: '#163B20',
-    error: '#FFD8D6',
-    errorText: '#990502',
-    warning: '#FCEACE',
-    warningText: '#93500D',
+    textSecondary: '#FFFFFF',
+    success: '#96AF90',
+    error: '#e86b77',
+    warning: '#F5C336',
     transparent: '#00000000',
   };
   

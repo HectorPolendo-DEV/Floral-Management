@@ -1,3 +1,5 @@
+import { ImageSourcePropType } from 'react-native';
+
 export type OrderStatus = 'Entregado' | 'Pendiente' | 'En camino' | 'Cancelado';
 
 export interface Order {
@@ -6,4 +8,5 @@ export interface Order {
     status: OrderStatus;
     type: string;
     date: Date;
+    image: ImageSourcePropType;
 }
