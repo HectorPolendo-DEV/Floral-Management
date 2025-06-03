@@ -1,5 +1,6 @@
 const colors = {
     primary: '#FFB8BF',
+    primaryDark: '#f2969f',
     secondary: '#FFE9EB',
     secondaryTransparent: '#FFEFED00',
     background: '#FFFFFF',
@@ -9,6 +10,7 @@ const colors = {
     error: '#e86b77',
     warning: '#F5C336',
     transparent: '#00000000',
+    white: '#FFFFFF',
   };
   
   export default colors;

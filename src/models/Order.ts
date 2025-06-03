@@ -1,11 +1,9 @@
 import { ImageSourcePropType } from 'react-native';
 
-export type OrderStatus = 'Entregado' | 'Pendiente' | 'En camino' | 'Cancelado';
-
 export interface Order {
     id: string;
     customer: string;
-    status: OrderStatus;
+    status: string;
     type: string;
     date: Date;
     image: ImageSourcePropType;

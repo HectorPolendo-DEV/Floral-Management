@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import OrderList from '../components/OrderList';
 import { mockOrders } from '../../mock/mockOrders';
 import colors from '../../theme/colors';
@@ -8,7 +9,7 @@ import Tag from '../components/Tag';
 
 const HomeScreen = () => {
   return (
-    <SafeAreaView className={`flex-1`} style={{ backgroundColor: colors.primary }}>
+    <SafeAreaView className={`flex-1`} style={{ backgroundColor: colors.primary }} edges={['top']}>
       <View className='flex-row items-center mt-6 justify-between'>
         <Text className='text-4xl font-semibold text-white text-center ml-10'>Florería</Text>
         <TouchableOpacity onPress={handlePress}>
