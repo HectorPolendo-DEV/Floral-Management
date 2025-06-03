@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Pressable, StyleSheet } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import colors from '../../theme/colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -21,22 +22,35 @@ const menuItems = [
     { icon: 'person-sharp', state: MenuState.CLIENTES },
     { icon: 'cube-outline', state: MenuState.PEDIDOS },
     { icon: 'add-sharp', state: MenuState.ADD }
-];
+];  
 
-const MenuButton: React.FC<MenuButtonProps> = ({ icon, isActive, onPress, color = colors.primaryDark }) => (
-    <Pressable
-        style={getButtonStyle(isActive)}
-        onPress={onPress}
-    >
-        <Ionicons 
-            name={icon} 
-            size={35} 
-            style={[
-                { color: isActive ? 'white' : color, alignSelf: 'center' }
-            ]}
+const MenuButton: React.FC<MenuButtonProps> = ({ icon, isActive, onPress, color = colors.primaryDark }) => {
+  const scale = useSharedValue(isActive ? 1.1 : 1);
+  const background = useSharedValue(isActive ? colors.primary : colors.secondaryTransparent);
+
+  React.useEffect(() => {
+    scale.value = withTiming(isActive ? 1.1 : 1, { duration: 100 });
+    background.value = isActive ? colors.primary : colors.secondaryTransparent;
+  }, [isActive]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+    backgroundColor: background.value,
+    opacity: withTiming(isActive ? 1 : 0.99, { duration: 100 }),
+  }));
+
+  return (
+    <Pressable onPress={onPress} style={{ flex: 1 }}>
+      <Animated.View style={[styles.buttonStyle, animatedStyle]}>
+        <Ionicons
+          name={icon}
+          size={35}
+          style={{ color: isActive ? 'white' : color, alignSelf: 'center' }}
         />
+      </Animated.View>
     </Pressable>
-);
+  );
+};
 
 const getButtonStyle = (isActive: boolean) => [
     styles.buttonStyle,
@@ -73,9 +87,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         backgroundColor: 'white',
-        paddingVertical: 4,
-        marginHorizontal: 4,
-        marginTop: 4,
+        marginHorizontal: 20,
+        marginTop: 20,
         marginBottom: 2,
         borderRadius: 9999
     },
@@ -84,11 +97,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primary,
         borderRadius: 9999,
         height: 60,
-        justifyContent: 'center'
-    },
-    pressableDefault: {
-        opacity: 0.5,
-        backgroundColor: 'white'
+        justifyContent: 'center',
     }
 })
 

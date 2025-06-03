@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import OrderList from '../components/OrderList';
 import { mockOrders } from '../../mock/mockOrders';
 import colors from '../../theme/colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Tag from '../components/Tag';
 
 const HomeScreen = () => {
   return (
