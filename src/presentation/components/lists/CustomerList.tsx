@@ -1,16 +1,16 @@
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
-import OrderItem from './OrderItem';
-import { Order } from '../../models/Order';
+import CustomerItem from '../items/CustomerItem';
 import { LinearGradient } from 'expo-linear-gradient';
 import colors from '@/theme/colors';
+import { Customer } from '@/models/Customer';
 
-interface OrderListProps {
-  orders: Order[];
+interface CustomerListProps {
+  customers: Customer[];
   className?: string;
 }
 
-const OrderList = ({ orders }: OrderListProps) => {
+const CustomerList = ({ customers }: CustomerListProps) => {
   return (
     <View className={`flex-1 relative bg-[${colors.secondary}]`}>
       <LinearGradient
@@ -19,9 +19,9 @@ const OrderList = ({ orders }: OrderListProps) => {
         pointerEvents="none"
       />
       <FlatList
-        data={orders}
+        data={customers}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <OrderItem order={item} />}
+        renderItem={({ item }) => <CustomerItem customer={item} />}
         contentContainerClassName='mx-4'
         className='flex-1'
         showsVerticalScrollIndicator={false}
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OrderList;
+export default CustomerList;

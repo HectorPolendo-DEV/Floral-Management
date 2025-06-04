@@ -5,10 +5,10 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 import colors from '../../theme/colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-enum MenuState {
-    CLIENTES = 'clientes',
-    PEDIDOS = 'Pedidos',
-    ADD = 'add'
+export enum MenuState {
+    CUSTOMERS = 'customers',
+    ORDERS = 'orders',
+    NEW_ORDERS = 'newOrders'
 }
 
 interface MenuButtonProps {
@@ -18,10 +18,15 @@ interface MenuButtonProps {
     color?: string;
 }
 
+interface Props {
+  activeState: MenuState;
+  onChange: (state: MenuState) => void;
+}  
+
 const menuItems = [
-    { icon: 'person-sharp', state: MenuState.CLIENTES },
-    { icon: 'cube-outline', state: MenuState.PEDIDOS },
-    { icon: 'add-sharp', state: MenuState.ADD }
+    { icon: 'person-sharp', state: MenuState.CUSTOMERS },
+    { icon: 'cube-outline', state: MenuState.ORDERS },
+    { icon: 'add-sharp', state: MenuState.NEW_ORDERS }
 ];  
 
 const MenuButton: React.FC<MenuButtonProps> = ({ icon, isActive, onPress, color = colors.primaryDark }) => {
@@ -52,18 +57,7 @@ const MenuButton: React.FC<MenuButtonProps> = ({ icon, isActive, onPress, color 
   );
 };
 
-const getButtonStyle = (isActive: boolean) => [
-    styles.buttonStyle,
-    { opacity: isActive ? 1 : 0.5, backgroundColor: isActive ? colors.primary : colors.white }
-];
-
-const Menu = () => {
-    const [activeState, setActiveState] = React.useState<MenuState>(MenuState.PEDIDOS);
-
-    const handlePress = (state: MenuState) => {
-        setActiveState(state);
-    };
-
+const Menu: React.FC<Props> = ({ activeState, onChange }) => {
     return (
         <SafeAreaView style={{backgroundColor: colors.secondary}} edges={['bottom']}>
             <View style={styles.menuContainer}>
@@ -72,7 +66,7 @@ const Menu = () => {
                     key={item.state}
                     icon={item.icon as keyof typeof Ionicons.glyphMap}
                     isActive={activeState === item.state}
-                    onPress={() => handlePress(item.state)}
+                    onPress={() => onChange(item.state)}
                 />
                 ))}
             </View>
@@ -101,4 +95,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Menu;
+export default Menu;;

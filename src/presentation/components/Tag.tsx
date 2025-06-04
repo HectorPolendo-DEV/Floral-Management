@@ -8,7 +8,7 @@ interface Props {
 export default function Tag({ text, color }: Props) {
     return (
         <View className={'rounded-full self-start'} style={{backgroundColor: color}}>
-            <Text style= {{fontFamily: 'Roboto-SemiBold'}} className={'text-lg text-white my-1 mx-2'}>{text}</Text>
+            <Text style= {{fontFamily: 'Roboto-SemiBold'}} className={'text-lg text-white my-0 mx-2'}>{text}</Text>
         </View> 
     )
 }

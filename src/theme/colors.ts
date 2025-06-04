@@ -11,6 +11,7 @@ const colors = {
     warning: '#F5C336',
     transparent: '#00000000',
     white: '#FFFFFF',
+    searchBarColor: '#FFFFFF',
   };
   
   export default colors;

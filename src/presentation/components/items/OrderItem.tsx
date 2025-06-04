@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, Image, Dimensions, ImageSourcePropType, Platform  } from 'react-native';
-import { Order } from '../../models/Order';
+import { Order } from '../../../models/Order';
 import colors from '@/theme/colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Tag from './Tag';
+import Tag from '../Tag';
 
 const screenWidth = Dimensions.get('window').width;
 const itemSize = screenWidth / 3;
