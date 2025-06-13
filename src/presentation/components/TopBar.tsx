@@ -1,15 +1,12 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
-import colors from '../../theme/colors';
+import { theme } from '../../theme/theme';
 import { MenuState } from './Menu';
 
-const handlePress = () => {
-    console.log('Icon pressed!');
-};
-
 interface Props {
-    screenTitle: MenuState
+    screenTitle: MenuState;
+    onIconPress: () => void;
 }
 
 const getScreenTitle = (screen: MenuState) => {
@@ -25,11 +22,18 @@ const getScreenTitle = (screen: MenuState) => {
     }
 }
 
-export default function TopBar({ screenTitle }: Props) {
+export default function TopBar({ screenTitle, onIconPress }: Props) {
   return (
-    <View className='flex-row items-center mt-6 justify-between' style={{ backgroundColor: colors.primary }}>
-        <Text className='text-4xl font-semibold text-white text-center ml-10'>{getScreenTitle(screenTitle)}</Text>
-        <TouchableOpacity onPress={handlePress}>
+    <View className='flex-row items-center mt-6 justify-between' style={{ backgroundColor: theme.colors.primary }}>
+        <Text
+            className='text-white text-center ml-10' 
+            style={{ 
+                fontSize: theme.fontSizes.title, 
+                fontFamily: 'Roboto-Regular' 
+            }}>
+            {getScreenTitle(screenTitle)}
+        </Text>
+        <TouchableOpacity onPress={onIconPress}>
           <Ionicons name="settings-sharp" size={25} color="white" className='mr-10'/>
         </TouchableOpacity>
     </View>

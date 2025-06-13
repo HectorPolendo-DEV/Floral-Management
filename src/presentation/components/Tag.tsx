@@ -1,4 +1,5 @@
-import { View, Text, ColorValue } from 'react-native';
+import { View, Text, ColorValue, StyleSheet } from 'react-native';
+import { theme } from '@/theme/theme';
 
 interface Props {
   text: string;
@@ -8,7 +9,17 @@ interface Props {
 export default function Tag({ text, color }: Props) {
     return (
         <View className={'rounded-full self-start'} style={{backgroundColor: color}}>
-            <Text style= {{fontFamily: 'Roboto-SemiBold'}} className={'text-lg text-white my-0 mx-2'}>{text}</Text>
+            <Text style= {styles.tag}>{text}</Text>
         </View> 
     )
 }
+
+const styles = StyleSheet.create({
+    tag: {
+        fontFamily: 'Roboto-SemiBold',
+        fontSize: theme.fontSizes.md,
+        color: theme.colors.white,
+        paddingHorizontal: theme.spacing.sm,
+        paddingVertical: theme.spacing.xs
+    }
+})

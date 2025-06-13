@@ -7,12 +7,12 @@ import { applyDefaultFont } from './src/theme/setupFonts';
 import { useFonts } from 'expo-font';
 import { fontMap } from './src/theme/fonts';
 import "./global.css"
-import HomeScreen from './src/presentation/screens/OrderScreen';
 import CustomerScreen from './src/presentation/screens/CustomerScreen';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import NewOrderScreen from './src/presentation/screens/NewOrderScreen';
 import colors from './src/theme/colors';
 import OrderScreen from './src/presentation/screens/OrderScreen';
+import SettingsScreen from '@/presentation/screens/SettingsScreen';
 
 const ScreenWrapper = ({
   isVisible,
@@ -38,6 +38,7 @@ const ScreenWrapper = ({
 export default function App() {
   const [fontsLoaded] = useFonts(fontMap);
   const [activeScreen, setActiveScreen] = useState<MenuState>(MenuState.ORDERS);
+  const [mainScreen, setMainScreen] = useState<MainScreenState>(MainScreenState.MAIN);
 
   if (!fontsLoaded) {
     return null;
@@ -45,27 +46,31 @@ export default function App() {
 
   applyDefaultFont('Roboto-Regular');
 
-  return (
-    <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }} edges={['top']}>
-        <TopBar screenTitle={activeScreen}/>
-        <View style={styles.container}>
-          <View style={styles.screenContainer}>
-            <ScreenWrapper isVisible={activeScreen === MenuState.ORDERS}>
-              <OrderScreen />
-            </ScreenWrapper>
-            <ScreenWrapper isVisible={activeScreen === MenuState.CUSTOMERS}>
-              <CustomerScreen />
-            </ScreenWrapper>
-            <ScreenWrapper isVisible={activeScreen === MenuState.NEW_ORDERS}>
-              <NewOrderScreen />
-            </ScreenWrapper>
+  if (mainScreen === MainScreenState.SETTINGS) {
+    return  <SettingsScreen />;
+  } else {
+    return (
+      <SafeAreaProvider>
+        <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }} edges={['top']}>
+          <TopBar screenTitle={activeScreen} onIconPress={() => setMainScreen(MainScreenState.SETTINGS)}/>
+          <View style={styles.container}>
+            <View style={styles.screenContainer}>
+              <ScreenWrapper isVisible={activeScreen === MenuState.ORDERS}>
+                <OrderScreen />
+              </ScreenWrapper>
+              <ScreenWrapper isVisible={activeScreen === MenuState.CUSTOMERS}>
+                <CustomerScreen />
+              </ScreenWrapper>
+              <ScreenWrapper isVisible={activeScreen === MenuState.NEW_ORDERS}>
+                <NewOrderScreen />
+              </ScreenWrapper>
+            </View>
+            <Menu activeState={activeScreen} onChange={setActiveScreen} />
           </View>
-          <Menu activeState={activeScreen} onChange={setActiveScreen} />
-        </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
-  );
+        </SafeAreaView>
+      </SafeAreaProvider>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -81,6 +86,6 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   screen: {
-    ...StyleSheet.absoluteFillObject, // para apilarse en el mismo espacio
+    ...StyleSheet.absoluteFillObject,
   },
 });

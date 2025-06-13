@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput, StyleSheet, Pressable } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import colors from '../../theme/colors';
+import { theme } from '../../theme/theme';
 
 
 interface Props {
@@ -16,21 +16,21 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, placeholder = 'Buscar
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <Ionicons name="search" size={20} color={colors.primaryDark} className='mr-2' />
+        <Ionicons name="search" size={20} color={theme.colors.primaryDark} className='mr-2' />
           <TextInput
             style={styles.input}
             value={value}
             onChangeText={onChangeText}
-            placeholder={placeholder}
+            placeholder={placeholder} 
             placeholderTextColor="#999"
             autoCorrect={false}
             autoCapitalize="none"
-            selectionColor={colors.primaryDark}
-            cursorColor={colors.primaryDark}/>
+            selectionColor={theme.colors.primaryDark}
+            cursorColor={theme.colors.primaryDark}/>
             
             {value.length > 0 && (
                 <Pressable onPress={() => onChangeText('')}>
-                    <Ionicons name="close-circle" size={25} color= {colors.primaryDark} className='ml-2' />
+                    <Ionicons name="close-circle" size={20} color= {theme.colors.primaryDark} className='ml-2' />
                 </Pressable>
             )}
 
@@ -41,7 +41,7 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, placeholder = 'Buscar
         onPressIn={() => setOpacity(0.5)}
         onPressOut={() => setOpacity(1)}
         style={[styles.filterButton, { opacity }]}>
-        <Ionicons name="filter" size={25} color={colors.primaryDark} />
+        <Ionicons name="filter" size={20} color={theme.colors.primaryDark} />
       </Pressable>
     </View>
     
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
   searchContainer: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: colors.searchBarColor,
-    paddingVertical: 8,
+    backgroundColor: theme.colors.searchBarColor,
+    paddingVertical: theme.spacing.sm,
     paddingHorizontal: 10,
     
     borderRadius: 30,
@@ -68,14 +68,15 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: 22,
+    paddingVertical: 0,
+    fontSize: theme.fontSizes.md,
     color: '#333',
     fontFamily: 'Roboto-Regular',
   },
   filterButton: {
-    backgroundColor: colors.white,
+    backgroundColor: theme.colors.white,
     borderRadius: 9999,
-    padding: 8,
+    padding: theme.spacing.xs,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 8

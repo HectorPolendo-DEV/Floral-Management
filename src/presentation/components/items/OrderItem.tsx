@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, Image, Dimensions, ImageSourcePropType, Platform  } from 'react-native';
+import { View, Text, Image, Dimensions, ImageSourcePropType, Platform, StyleSheet  } from 'react-native';
 import { Order } from '../../../models/Order';
-import colors from '@/theme/colors';
+import { theme } from '@/theme/theme';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Tag from '../Tag';
 
@@ -9,10 +9,10 @@ const screenWidth = Dimensions.get('window').width;
 const itemSize = screenWidth / 3;
 
 const statusColor: Record<string, string> = {
-  'Entregado': `${colors.success}`,
-  'Pendiente': `${colors.warning}`,
+  'Entregado': `${theme.colors.success}`,
+  'Pendiente': `${theme.colors.warning}`,
   'En camino': '#2196F3',
-  'Cancelado': `${colors.error}`
+  'Cancelado': `${theme.colors.error}`
 };
 
 interface Props {
@@ -47,17 +47,35 @@ const OrderItem = ({ order }: Props) => {
             resizeMode="cover"
           />
       
-          <View className='my-2 mx-4 flex-1'>
+          <View className='my-2 mx-4 flex-1 justify-between gap-y-2'>
               <Tag text={order.status} color={statusColor[order.status]}/>
-              <Text style={{fontFamily: 'Roboto-SemiBold'}} className='text-2xl' numberOfLines={1}>{order.customer}</Text>
-              <Text style={{fontFamily: 'Roboto-SemiBold', color: colors.primary}} className='text-xl'>{'#'+order.id}</Text>
-              <Text className='text-2xl me-2'numberOfLines={2}>Tipo: {order.type}</Text>
+              <Text style= {styles.name} numberOfLines={1}>{order.customer}</Text>
+              <Text style={styles.orderId}>{'#'+order.id}</Text>
+              <Text style={styles.type} numberOfLines={2}>Tipo: {order.type}</Text>
           </View>
 
-          <Ionicons name="chevron-forward-sharp" size={25} color={colors.primary} className='mr-1 self-center'/>
+          <Ionicons name="chevron-forward-sharp" size={25} color={theme.colors.primary} className='mr-1 self-center'/>
         </View>
       );
     }
 };
+
+const styles = StyleSheet.create({
+  name: {
+    fontFamily: 'Roboto-SemiBold',
+    color: theme.colors.textPrimary, 
+    fontSize: theme.fontSizes.md
+  },
+  orderId: {
+    fontFamily: 'Roboto-SemiBold', 
+    color: theme.colors.primary,
+    fontSize: theme.fontSizes.md
+  },
+  type: {
+    fontFamily: 'Roboto-Regular',
+    color: theme.colors.textPrimary, 
+    fontSize: theme.fontSizes.md
+  }
+})
 
 export default OrderItem;
